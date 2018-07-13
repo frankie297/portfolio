@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Header from './Header';
 import './materialize/materialize.min.css';
 import './App.css';
+import Slider from './Slider';
 
 class App extends Component {
   render() {
@@ -10,6 +11,7 @@ class App extends Component {
         <Header/>
         <p className="App-intro">
         </p>
+        <Slider/>
       </div>
     );
   }

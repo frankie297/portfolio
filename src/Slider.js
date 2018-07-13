@@ -4,7 +4,7 @@ import SlideTwo from './SlideTwo';
 import SlideThree from './SlideThree';
 import RightArrow from './RightArrow';
 import LeftArrow from './LeftArrow';
-require('./Slider.scss');
+import './Slider.css';
 
 export default class Slider extends Component {
   constructor(props) {
@@ -36,7 +36,6 @@ export default class Slider extends Component {
     );
   }
 
-	// I have ocd sometimes and put my functions below the JSX. You can put them above if you'd like.
   nextSlide() {
       this.setState({ slideCount: this.state.slideCount + 1 })
   }

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import Background from './Northern-Lights-Super-Jeep-Tour15-1200x800.jpg';
 
 const SlideTwo= (props) => {
   let background = {
-    backgroundImage: 'url(./Hopetoun_falls.jpg)',
+    backgroundImage: `url(${require("./Hopetoun_falls.jpg")})`,
     backgroundSize: 'cover',
     backgroundPosition: 'center'
   }
