@@ -5,7 +5,8 @@ const SlideTwo= (props) => {
   let background = {
     backgroundImage: `url(${require("./Hopetoun_falls.jpg")})`,
     backgroundSize: 'cover',
-    backgroundPosition: 'center'
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat'
   }
 
   return <div style={background} className="slide"></div>

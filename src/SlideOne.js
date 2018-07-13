@@ -5,7 +5,8 @@ const SlideOne= (props) => {
   let background = {
     backgroundImage: `url(${require("./Northern-Lights-Super-Jeep-Tour15-1200x800.jpg")})`,
     backgroundSize: 'cover',
-    backgroundPosition: 'center'
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat'
   }
 
   return <div style={background} className="slide"></div>
