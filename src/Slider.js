@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import SlideOne from './SlideOne';
-import SlideTwo from './SlideTwo';
-import SlideThree from './SlideThree';
+import Slide from './Slide';
 import RightArrow from './RightArrow';
 import LeftArrow from './LeftArrow';
 import './Slider.css';
@@ -9,38 +7,93 @@ import './Slider.css';
 export default class Slider extends Component {
   constructor(props) {
     super(props);
+  }
 
-    this.state = {
-      slideCount: 1
+// renderSlides = () => this.props.images.map((curr, i) => <Slide key={i} image={this.props.images[i]} />)
+
+  renderSlider = (images) => {
+    //images will be an array of strings that match to a file
+    console.log(images);
+    //for each image generate a slide passing in the filename
+    const slides = [];
+    for (let i = 0; i < images.length; i++) {
+        // note: the key prop here will allow react to uniquely identify each element in
+        // this array. see: https://reactjs.org/docs/lists-and-keys.html
+        images.push(<Slide key={i} image={images[i]}/>);
     }
-
-    this.nextSlide = this.nextSlide.bind(this);
-    this.previousSlide = this.previousSlide.bind(this);
+    return <div>{slides}</div>;
   }
 
   render() {
 
+    const {
+      images,
+      index,
+      translateValue
+    } = this.props
+
+    const initialState = {
+    images: ["Northern-Lights-Super-Jeep-Tour15-1200x800", "Hopetoun_falls", "Experiences_Beach"],
+    index: 0,
+    translateValue: 0
+  }
+
     return (
       <div className="slider">
 
-        {/* Slides go here */}
-        { this.state.slideCount === 1 ? <SlideOne /> : null }
-        { this.state.slideCount === 2 ? <SlideTwo /> : null }
-        { this.state.slideCount === 3 ? <SlideThree /> : null }
+      <div className="slider-wrapper"
+        style={{
+          transform: `translateX(${translateValue}px)`,
+          transition: 'transform ease-out 0.45s'
+        }}>
+         { this.renderSlider(initialState.images) }
+      </div>
 
-        {/* Arrow Functionality */}
         <RightArrow nextSlide={this.nextSlide} />
         <LeftArrow previousSlide={this.previousSlide} />
 
       </div>
-    );
+    )
   }
 
   nextSlide() {
-      this.setState({ slideCount: this.state.slideCount + 1 })
+    const { images, index, translateValue, setTranslateValue, setIndex } = this.props
+    if(index === images.length - 1) {
+      setTranslateValue(0)
+      return setIndex(0)
+    }
+    setTranslateValue(translateValue - this.slideWidth())
+    setIndex(index + 1)
   }
 
   previousSlide() {
-      this.setState({ slideCount: this.state.slideCount - 1 })
+    const { index, translateValue, setTranslateValue, setIndex } = this.props
+    if(index === 0) return
+
+    setTranslateValue(translateValue + this.slideWidth())
+    setIndex(index - 1)
+  }
+
+  handleDotClick = i => {
+  const { index, translateValue, setTranslateValue, setIndex } = this.props
+  if(i === index) return
+
+  if(i > index)
+    setTranslateValue(-(i * this.slideWidth()))
+  else
+    setTranslateValue(translateValue + ((index - i) * (this.slideWidth())))
+
+  setIndex(i)
+}
+
+slideWidth = () => document.querySelector('.slide').clientWidth
+
+}
+
+const mapStateToProps = ({ slider }) => {
+  return {
+    images: slider.images,
+    index: slider.index,
+    translateValue: slider.translateValue
   }
 }
