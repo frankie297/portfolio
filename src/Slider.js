@@ -9,20 +9,23 @@ export default class Slider extends Component {
     super(props);
   }
 
-// renderSlides = () => this.props.images.map((curr, i) => <Slide key={i} image={this.props.images[i]} />)
-
-  renderSlider = (images) => {
-    //images will be an array of strings that match to a file
+ renderSlider = (images) => {
+    images.map((curr, i) => images.push(<Slide key={i} image={images[i]}/>));
     console.log(images);
-    //for each image generate a slide passing in the filename
-    const slides = [];
-    for (let i = 0; i < images.length; i++) {
-        // note: the key prop here will allow react to uniquely identify each element in
-        // this array. see: https://reactjs.org/docs/lists-and-keys.html
-        images.push(<Slide key={i} image={images[i]}/>);
-    }
-    return <div>{slides}</div>;
   }
+
+  // renderSlider = (images) => {
+  //   //images will be an array of strings that match to a file
+  //   console.log(images);
+  //   //for each image generate a slide passing in the filename
+  //    const slides = [];
+  //   for (let i = 0; i < images.length; i++) {
+  //       // note: the key prop here will allow react to uniquely identify each element in
+  //       // this array. see: https://reactjs.org/docs/lists-and-keys.html
+  //        images.push(<Slide key={i} image={images[i]}/>);
+  //   }
+  //    return <div>{slides}</div>;
+  // }
 
   render() {
 
@@ -74,19 +77,19 @@ export default class Slider extends Component {
     setIndex(index - 1)
   }
 
-  handleDotClick = i => {
-  const { index, translateValue, setTranslateValue, setIndex } = this.props
-  if(i === index) return
-
-  if(i > index)
-    setTranslateValue(-(i * this.slideWidth()))
-  else
-    setTranslateValue(translateValue + ((index - i) * (this.slideWidth())))
-
-  setIndex(i)
-}
-
-slideWidth = () => document.querySelector('.slide').clientWidth
+//   handleDotClick = i => {
+//   const { index, translateValue, setTranslateValue, setIndex } = this.props
+//   if(i === index) return
+//
+//   if(i > index)
+//     setTranslateValue(-(i * this.slideWidth()))
+//   else
+//     setTranslateValue(translateValue + ((index - i) * (this.slideWidth())))
+//
+//   setIndex(i)
+// }
+//
+ slideWidth = () => document.querySelector('.slide').clientWidth
 
 }
 
